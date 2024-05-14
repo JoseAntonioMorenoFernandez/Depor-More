@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalnia:wght@100&family=Protest+Guerrilla&family=Roboto:wght@100;300&family=Rubik+Distressed&family=Satisfy&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    box-sizing: border-box;
+}
+
+.custom-h1 {
+    font-family: "Protest Guerrilla", sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    font-style: normal;
+    letter-spacing: 2px;
+}
+
+.custom-btn {
+    font-size: 24px;
+    padding: 25px; 
+    margin: 10px; 
+    width: 100%;
+    height: auto;
+}
+
+
+    .table-striped-custom tbody tr:nth-child(4n+2) {
+        background-color: #916464; 
+    }
+
+    .table-striped-custom tbody tr:nth-child(4n+3) {
+        background-color: #e6e6e6; 
+    }
