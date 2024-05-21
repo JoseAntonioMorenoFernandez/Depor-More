@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2024 a las 22:01:25
+-- Tiempo de generación: 21-05-2024 a las 23:09:29
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -206,13 +206,31 @@ INSERT INTO `categorias` (`id_cat`, `cod_cat`, `nom_cat`, `cod_sub`, `nom_sub`, 
 --
 
 CREATE TABLE `lineapedido` (
+  `id` int(11) NOT NULL,
   `numPedido` int(11) NOT NULL,
-  `numLinea` int(11) NOT NULL,
-  `ean` int(13) NOT NULL,
+  `ean` varchar(13) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `precio` float NOT NULL,
-  `descuento` float NOT NULL
+  `precio` decimal(10,2) NOT NULL,
+  `descuento` decimal(5,2) DEFAULT 0.00,
+  `talla` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `lineapedido`
+--
+
+INSERT INTO `lineapedido` (`id`, `numPedido`, `ean`, `cantidad`, `precio`, `descuento`, `talla`) VALUES
+(1, 1, '8968242783913', 1, 29.00, 0.00, 'XXS'),
+(2, 2, '8968242783913', 1, 29.00, 0.00, 'XXS'),
+(3, 3, '8045448685262', 1, 39.00, 0.00, 'L'),
+(4, 3, '8264120050136', 1, 49.00, 0.00, 'L'),
+(5, 3, '8447746877668', 1, 79.00, 15.00, '42'),
+(6, 4, '8401942319016', 1, 390.00, 0.00, ''),
+(7, 4, '8822019300636', 1, 29.00, 0.00, ''),
+(8, 4, '8260648768899', 1, 39.00, 0.00, 'XXS'),
+(9, 5, '8301264026735', 1, 79.00, 0.00, ''),
+(15, 9, '8307774885205', 1, 22.00, 0.00, 'L'),
+(16, 9, '8832679186759', 1, 49.00, 0.00, '42');
 
 -- --------------------------------------------------------
 
@@ -221,12 +239,24 @@ CREATE TABLE `lineapedido` (
 --
 
 CREATE TABLE `pedidos` (
-  `id_pedido` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `total` float NOT NULL,
-  `estado` enum('pendiente','completado') NOT NULL,
-  `dniUsuario` varchar(9) NOT NULL
+  `id` int(11) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `estado` enum('INCOMPLETO','COMPLETADO') DEFAULT 'INCOMPLETO',
+  `dni` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `fecha`, `total`, `estado`, `dni`) VALUES
+(1, '2024-05-20 23:52:46', 29.00, 'COMPLETADO', '11111112L'),
+(2, '2024-05-20 23:54:13', 29.00, 'COMPLETADO', '11111112L'),
+(3, '2024-05-20 23:57:50', 155.15, 'INCOMPLETO', '11111112L'),
+(4, '2024-05-21 00:23:27', 458.00, 'INCOMPLETO', '11111113C'),
+(5, '2024-05-21 00:24:43', 79.00, 'COMPLETADO', '11111113C'),
+(9, '2024-05-21 23:05:23', 71.00, 'INCOMPLETO', '11111114K');
 
 -- --------------------------------------------------------
 
@@ -255,10 +285,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `dni`, `nombre`, `apellidos`, `direccion`, `localidad`, `cpostal`, `provincia`, `telefono`, `rol`, `email`, `password`, `activo`) VALUES
-(1, '11111111H', 'Cliente 1', 'Cliente 1', '', '', '', '', 0, 'cliente', 'cliente1@gmail.com', '$2y$10$ovK6tUcBCwVZJGUEvm4Jxu69UdoNn8a5HSexhTMSkYSizx6fihDQy', 'S'),
-(2, '11111112L', 'Cliente 2', 'Cliente 2', '', '', '', '', 0, 'cliente', 'cliente2@gmail.com', '$2y$10$M4b1rBv90zUqWS1Xshq51uMV0GXPaFBFx1Fy50oa6ZoCOI19b2pne', 'S'),
-(3, '11111113C', 'Cliente 3', 'Cliente 3', '', '', '', '', 0, 'cliente', 'cliente3@gmail.com', '$2y$10$DwidaxcH2TNRUMvxMSygNen8LAd1DH3iWOqSdh/KJ18qx.RHhGKIi', 'S'),
-(4, '11111114K', 'Cliente 4', 'Cliente 4', '', '', '', '', 0, 'cliente', 'cliente4@gmail.com', '$2y$10$eLhqTfyoOowCYfotdOUQ9OYMvjwX6/94NveaDY/fjbshVkouOGpM2', 'S'),
+(1, '11111111H', 'Cliente 1', 'Cliente 1', 'C/ Cliente 1 ', 'Petrer', '03610', 'Alicante', 600600600, 'cliente', 'cliente1@gmail.com', '$2y$10$ovK6tUcBCwVZJGUEvm4Jxu69UdoNn8a5HSexhTMSkYSizx6fihDQy', 'S'),
+(2, '11111112L', 'Cliente 2', 'Cliente 2', 'C/ Cliente 2', 'Elda', '03600', 'Alicante ', 600200100, 'cliente', 'cliente2@gmail.com', '$2y$10$M4b1rBv90zUqWS1Xshq51uMV0GXPaFBFx1Fy50oa6ZoCOI19b2pne', 'S'),
+(3, '11111113C', 'Cliente 3', 'Cliente 3', 'C/ Cliente 3', 'Monforte del Cid', '03670', 'Alicante', 600300300, 'cliente', 'cliente3@gmail.com', '$2y$10$DwidaxcH2TNRUMvxMSygNen8LAd1DH3iWOqSdh/KJ18qx.RHhGKIi', 'S'),
+(4, '11111114K', 'Cliente 4', 'Cliente 4', 'C/ Cliente 4', 'Villena', '03400', 'Alicante', 600300100, 'cliente', 'cliente4@gmail.com', '$2y$10$eLhqTfyoOowCYfotdOUQ9OYMvjwX6/94NveaDY/fjbshVkouOGpM2', 'S'),
 (5, '11111115E', 'Cliente 5', 'Cliente 5', '', '', '', '', 0, 'cliente', 'cliente5@gmail.com', '$2y$10$02arIDIjDQCOScBBhqs7DOTULmvRUWm4oPHp2Y2Iyb6wL/EsEoEyy', 'S'),
 (6, '11111116T', 'Cliente 6', 'Cliente 6', '', '', '', '', 0, 'cliente', 'cliente6@gmail.com', '$2y$10$KpB1d.p7c6ycqJ94elF18ONa3SgpS54AHeFO6tjSRFa58qADCN9QG', 'S'),
 (7, '11111117R', 'Cliente 7', 'Cliente 7', '', '', '', '', 0, 'cliente', 'cliente7@gmail.com', '$2y$10$P2vXF8F3ufHm6D8hW8i8ResNC0JdLu93WnTspUja.NgaJfqwxR3q6', 'S'),
@@ -297,23 +327,23 @@ ALTER TABLE `categorias`
 -- Indices de la tabla `lineapedido`
 --
 ALTER TABLE `lineapedido`
-  ADD PRIMARY KEY (`numPedido`),
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `numPedido` (`numPedido`),
   ADD KEY `ean` (`ean`);
 
 --
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD PRIMARY KEY (`id_pedido`),
-  ADD UNIQUE KEY `dniUsuario` (`dniUsuario`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dni` (`dni`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `dni` (`dni`),
-  ADD UNIQUE KEY `email` (`email`(50));
+  ADD UNIQUE KEY `uk_dni` (`dni`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -335,19 +365,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `lineapedido`
 --
 ALTER TABLE `lineapedido`
-  MODIFY `numPedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Restricciones para tablas volcadas
@@ -358,6 +388,19 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `articulos`
   ADD CONSTRAINT `fk_cod_categoria` FOREIGN KEY (`cod_categoria`) REFERENCES `categorias` (`id_cat`);
+
+--
+-- Filtros para la tabla `lineapedido`
+--
+ALTER TABLE `lineapedido`
+  ADD CONSTRAINT `lineapedido_ibfk_1` FOREIGN KEY (`numPedido`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `lineapedido_ibfk_2` FOREIGN KEY (`ean`) REFERENCES `articulos` (`ean`);
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`dni`) REFERENCES `usuarios` (`dni`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

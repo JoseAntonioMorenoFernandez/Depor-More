@@ -1,7 +1,7 @@
 <?php
-session_start();
-
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 include './php/manejo_roles.php';
@@ -26,6 +26,10 @@ if (isset($_SESSION['mensaje'])) {
     <link rel="stylesheet" href="./css/estilos.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="sidebars.css">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <title>Depor More</title>
 </head>
 
