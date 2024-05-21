@@ -3,13 +3,17 @@ session_start();
 
 include 'ConexionDB.php'; 
 
+include_once '../php/funciones_usuario.php';
+
+// Si el usuario no está autenticado, asignar un ID de invitado
+$id_usuario = $_SESSION['id_usuario'] = obtenerIDUsuario() ?? 'invitado';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $conexionDB = new ConexionDB($host, $usuario, $password, $base_datos);
         $conn = $conexionDB->obtenerConexion();
 
-        
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -28,8 +32,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                     $_SESSION['loggedin'] = true;
                     $_SESSION['email'] = $email;
+                    $_SESSION['id_usuario'] = $row['id']; // Almacenar el ID del usuario en la sesión
                     $_SESSION['nombre_usuario'] = $row['nombre'];
                     $_SESSION['rol'] = $row['rol']; // Almacenar el rol en la sesión
+
+                    // Verificar y transferir los datos del carrito del usuario
+                    if (isset($_SESSION['usuarios'][$id_usuario]['carrito'])) {
+                        // Copiar los datos del carrito del usuario al iniciar sesión
+                        $_SESSION['usuarios'][$row['id']]['carrito'] = $_SESSION['usuarios'][$id_usuario]['carrito'];
+                        // Limpiar los datos del carrito del usuario anterior
+                        unset($_SESSION['usuarios'][$id_usuario]['carrito']);
+                    }
+
+                    // Imprimir los datos del carrito de la compra
+                    echo "<pre>";
+                    var_dump($_SESSION['usuarios'][$row['id']]['carrito']);
+                    echo "</pre>";
 
                     header('Location: ../index.php?page=inicio');
                     exit();
@@ -51,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
 header('Location: ../index.php?page=inicio');
 exit();
+
+?>
