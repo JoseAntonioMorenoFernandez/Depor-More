@@ -1,5 +1,6 @@
-<?php include './pagina/breadcrumb.php'; ?>
-<?php echo $breadcrumbs;
+<?php
+include './pagina/breadcrumb.php';
+echo $breadcrumbs;
 
 include_once './php/funciones_usuario.php';
 include_once './php/ConexionDB.php';
@@ -35,49 +36,66 @@ if ($resultado->num_rows == 1) {
 
 $stmt->close();
 
-$sql_pedidos = "SELECT * FROM pedidos WHERE dni = ? ORDER BY fecha DESC";
+
+$sql_pedidos = "SELECT p.*, u.nombre AS nombre_usuario, u.apellidos AS apellidos_usuario 
+                FROM pedidos p 
+                JOIN usuarios u ON p.dni = u.dni
+                WHERE p.estado = 'INCOMPLETO' 
+                ORDER BY p.fecha DESC";
 $stmt_pedidos = $conn->prepare($sql_pedidos);
-$stmt_pedidos->bind_param("s", $dni);
 $stmt_pedidos->execute();
 $resultado_pedidos = $stmt_pedidos->get_result();
 ?>
 
-
 <div class="container mt-5">
-    <h1>Mis Pedidos</h1>
+    <h1>Pedidos Incompletos</h1>
     <?php if ($resultado_pedidos->num_rows > 0) : ?>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Pedido</th>
+                    <th scope="col">Nombre del Usuario</th>
+                    <th scope="col">Apellidos del Usuario</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Total</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
+                    <th scope="col">Cambiar</th>
+
                 </tr>
             </thead>
             <tbody>
                 <?php while ($pedido = $resultado_pedidos->fetch_assoc()) : ?>
                     <tr>
                         <th scope="row"><?php echo htmlspecialchars($pedido['id']); ?></th>
+                        <td><?php echo htmlspecialchars($pedido['nombre_usuario']); ?></td>
+                        <td><?php echo htmlspecialchars($pedido['apellidos_usuario']); ?></td>
                         <td><?php echo htmlspecialchars($pedido['fecha']); ?></td>
                         <td><?php echo htmlspecialchars(number_format($pedido['total'], 2)); ?> €</td>
                         <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
                         <td>
-                            <a href="index.php?page=detallePedido&id_pedido=<?php echo htmlspecialchars($pedido['id']); ?>" class="btn btn-info btn-sm">
+                            <a href="index.php?page=detallePedidoIncompleto&id_pedido=<?php echo htmlspecialchars($pedido['id']); ?>" class="btn btn-info btn-sm">
                                 Ver Detalle
                             </a>
-
                         </td>
+                        <td>
+                            <a href="index.php?page=pedidoCompletado&id_pedido=<?php echo htmlspecialchars($pedido['id']); ?>" class="btn btn-warning btn-sm">
+                                Estado
+                            </a>
+                        </td>
+
+
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
     <?php else : ?>
-        <p>No tiene pedidos realizados.</p>
+        <p>No hay pedidos incompletos en este momento.</p>
     <?php endif; ?>
 </div>
-
+<form action="index.php?page=pedidosClientes" method="POST">
+    <button type="submit" class="btn btn-primary">Volver</button>
+</form>
 <?php
 $stmt_pedidos->close();
 $conn->close();
