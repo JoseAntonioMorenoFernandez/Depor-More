@@ -50,4 +50,7 @@
     color: #0f0e0e; 
 }
 
+.form-inline .form-control {
+    width: 20px; 
 
+}
