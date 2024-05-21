@@ -10,8 +10,8 @@
                 </div>
             </div>
             <div class="col-lg-5 col-md-12 d-flex justify-content-center justify-content-lg-start mt-3 mt-lg-0">
-                <form class="d-flex w-75">
-                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Buscar" aria-label="Buscar">
+                <form class="d-flex w-75" action="index.php?page=principal" method="post">
+                    <input class="form-control me-2 flex-grow-1" type="search" placeholder="Buscar" aria-label="Buscar" name="q">
                     <button class="btn btn-secondary text-light" type="submit">Buscar</button>
                 </form>
             </div>

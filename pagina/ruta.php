@@ -1,7 +1,7 @@
 <?php
 // Rutas de las páginas
 $pages = array(
-    'principal'=> '../index.php',
+    'principal'=> 'principal.php',
     'inicio' => 'principal.php',
     'tienda' => 'tienda.php',
     'somos' => 'quienes_somos.php',
@@ -53,6 +53,18 @@ $pages = array(
     'activarAdministrador' => 'usuarios/activarAdministrador.php',
     'borrarAdministrador' => 'usuarios/borrarAdministrador.php',
     'comprarArticulo' => 'comprarArticulo.php',
+    'carrito' =>'carrito/carrito.php',
+    'procesarCompra' => 'carrito/procesarCompra.php',
+    'finalizarCompra' => 'carrito/finalizarCompra.php',
+    'compraRealizada' => 'carrito/compraRealizada.php',
+    'detallePedido' => 'carrito/detallePedido.php',
+    'pedidosClientes' => 'carrito/pedidosClientes.php',
+    'pedidosClientesIncompletos' => 'carrito/pedidosClientesIncompletos.php',
+    'pedidosClientesCompletos' => 'carrito/pedidosClientesCompletos.php',
+    'detallePedidoIncompleto' => 'carrito/detallePedidoIncompleto.php',
+    'detallePedidoCompleto' => 'carrito/detallePedidoCompleto.php',
+    'pedidoCompletado' => 'carrito/pedidoCompletado.php'
+
 );
 
 function handle_request()
@@ -94,7 +106,9 @@ function handle_request()
             $page_path = dirname(__DIR__) . '/' . $pages[$page];
         }
 
-        if ($page == 'comparArticulo') {
+        if ($page == 'comparArticulo' || $page == 'carrito' || $page == 'procesarCompra' || $page == 'finalizarCompra' || $page == 'compraRealizada'
+        || $page == 'detallePedido' || $page == 'pedidosClientes' || $page == 'pedidosClientesIncompletos' || $page == 'pedidosClientesCompletos'
+        || $page == 'detallePedidoIncompleto' || $page == 'detallePedidoCompleto' || $page == 'pedidoCompletado') {
             $page_path = dirname(__DIR__) . '/' . $pages[$page];
         }
        

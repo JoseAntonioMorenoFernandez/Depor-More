@@ -49,7 +49,18 @@ $pages = array(
     'administradoresInactivos' => 'Administradores Inactivos',
     'activarAdministrador' => 'Activar Administradores',
     'borrarAdministrador' => 'Borrar Administrador',
-    'comprarArticulo' => 'Comprar Artículos'
+    'comprarArticulo' => 'Comprar Artículos',
+    'carrito' => 'Carrito de la compra',
+    'procesarCompra' => 'Procesar Compra',
+    'finalizarCompra' => 'Finalizar Compra',
+    'compraRealizada'=> 'Compra Realizada',
+    'detallePedido' => 'Detalle Pedido',
+    'pedidosClientes' => 'Pedidos de clientes',
+    'pedidosClientesIncompletos' => 'Pedidos de clientes incompletos',
+    'pedidosClientesCompletos' => 'Pedidos de clientes completos',
+    'detallePeditoIncompleto' => 'Detalle de pedidos de cliente incompletos',
+    'detallePeditoCompleto' => 'Detalle de pedidos de cliente completos',
+    'pedidoCompletado' => 'Cambiar el estado del pedido a completado'
 );
 
 // Obtener el parámetro de página actual

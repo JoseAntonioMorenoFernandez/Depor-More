@@ -3,36 +3,38 @@
 
 include 'articulos_principal.php';
 
+// Verificar si se ha seleccionado una categoría y subcategoría
+$categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
+$subcategoriaSeleccionada = isset($_GET['subcategoria']) ? $_GET['subcategoria'] : null;
 
-if ($categoriaSeleccionada && $subcategoriaSeleccionada) {
-  
-    $articulosCategoria = obtenerArticulosPorCategoria($categoriaSeleccionada, $subcategoriaSeleccionada);
+// Verificar si se ha proporcionado un término de búsqueda
 
-    $articulosPagina = $articulosCategoria;
+
+$termino_busqueda = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
+
+// Realizar la búsqueda si se proporciona un término
+if (!empty($termino_busqueda)) {
+    $articulos = buscarArticulosPorTermino($termino_busqueda);
 } else {
-    
-    $articulosPagina = $articulos;
+    // Obtener los artículos de la categoría/subcategoría si se han seleccionado
+    $categoriaSeleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
+    $subcategoriaSeleccionada = isset($_GET['subcategoria']) ? $_GET['subcategoria'] : null;
+
+    if ($categoriaSeleccionada && $subcategoriaSeleccionada) {
+        $articulos = obtenerArticulosPorCategoria($categoriaSeleccionada, $subcategoriaSeleccionada);
+    } else {
+        // Obtener todos los artículos si no hay criterios de búsqueda
+        $articulos = obtenerTodosLosArticulosAleatorios();
+    }
 }
 
-
+// Paginar los resultados
 $articulosPorPagina = 9;
-
-
 $paginaActual = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-
-
-$totalPaginas = ceil(count($articulosPagina) / $articulosPorPagina);
-
-
+$totalArticulos = count($articulos);
+$totalPaginas = ceil($totalArticulos / $articulosPorPagina);
 $indiceInicio = ($paginaActual - 1) * $articulosPorPagina;
-$indiceFin = $indiceInicio + $articulosPorPagina;
-
-
-$articulosPagina = array_slice($articulosPagina, $indiceInicio, $articulosPorPagina);
-
-
-$page = isset($_GET['page']) ? $_GET['page'] : '';
-
+$articulosPagina = array_slice($articulos, $indiceInicio, $articulosPorPagina);
 ?>
 
 
@@ -103,6 +105,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : '';
 function obtenerURLPaginaActual()
 {
     $paginaURL = strtok($_SERVER["REQUEST_URI"], '?');
-    return $paginaURL . (isset($_GET) && !empty($_GET) ? '?' . http_build_query($_GET) : '');
+    $query_params = $_GET;
+    
+    // Si se ha proporcionado un término de búsqueda, añadirlo a los parámetros de la URL
+    if (isset($_POST['q']) && !empty($_POST['q'])) {
+        $query_params['q'] = $_POST['q'];
+    }
+    
+    return $paginaURL . (isset($query_params) && !empty($query_params) ? '?' . http_build_query($query_params) : '');
 }
 ?>
