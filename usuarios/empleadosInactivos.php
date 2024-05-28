@@ -57,7 +57,7 @@ $dni = isset($_POST['dni']) ? $_POST['dni'] : '';
             }
             ?>
             <div class="bg-danger text-white p-2 mb-2 text-center">
-                <h3>Administrar Empleados Inactivos</h3>
+                <h3>Administrar Empleados o Administradores Inactivos</h3>
             </div>
             <div class="bg-light p-3 rounded">
                 <table class="table table-striped table-striped-custom">
@@ -67,11 +67,7 @@ $dni = isset($_POST['dni']) ? $_POST['dni'] : '';
                             <th>DNI</th>
                             <th>Nombre</th>
                             <th>Apellidos</th>
-                            <th>Direccion</th>
-                            <th>Localidad</th>
-                            <th>C.Postal</th>
-                            <th>Provincia</th>
-                            <th>Teléfono</th>
+                            <th>Rol</th>
                             <th>ACTIVAR</th>
                         </tr>
                     </thead>
@@ -101,14 +97,8 @@ $dni = isset($_POST['dni']) ? $_POST['dni'] : '';
                             echo '<td>' . $usuario['dni'] . '</td>';
                             echo '<td>' . $usuario['nombre'] . '</td>';
                             echo '<td>' . $usuario['apellidos'] . '</td>';
-                            echo '<td>' . $usuario['direccion'] . '</td>';
-                            echo '<td>' . $usuario['localidad'] . '</td>';
-                            echo '<td>' . $usuario['cpostal'] . '</td>';
-                            echo '<td>' . $usuario['provincia'] . '</td>';
-                            echo '<td>' . $usuario['telefono'] . '</td>';
-
-
-
+                            echo '<td>' . $usuario['rol'] . '</td>';
+                           
                             echo '<td>';
                             echo '<form action="index.php?page=activarEmpleado" method="POST">';
                             

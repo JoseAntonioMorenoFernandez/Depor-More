@@ -40,7 +40,7 @@ if (isset($_SESSION['activar_empleado'])) {
         <div class="col-md-6">
         
             <div class="bg-danger text-white p-2 mb-2 text-center">
-                <h3>Activar Empleado</h3>
+                <h3>Activar Empleado o Administrador</h3>
             </div>
             <div class="card">
 
@@ -88,7 +88,7 @@ if (isset($_SESSION['activar_empleado'])) {
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Confirmar Activar</button>
-                            <a href="index.php?page=mantenimientoClientes" class="btn btn-secondary">Cancelar</a>
+                            <a href="index.php?page=empleadosInactivos" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>

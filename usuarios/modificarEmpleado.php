@@ -52,7 +52,7 @@ if (isset($_SESSION['datos_actualizados'])) {
             }
             ?>
             <div class="bg-primary text-white p-2 mb-2 text-center">
-                <h3>Modificar Empleado</h3>
+                <h3>Modificar Empleado o Administrador</h3>
             </div>
             <div class="card">
 

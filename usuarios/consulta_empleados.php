@@ -10,7 +10,7 @@ if ($conn->connect_error) {
 }
 
 
-$sql = "SELECT * FROM usuarios WHERE activo = 'S' AND rol = 'empleado'";
+$sql = "SELECT * FROM usuarios WHERE activo = 'S' AND (rol = 'empleado' OR rol = 'administrador')";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

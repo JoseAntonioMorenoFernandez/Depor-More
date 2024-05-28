@@ -14,17 +14,13 @@
                             <a href="index.php?page=clientesInactivos" class="btn btn-outline-secondary btn-lg btn-block custom-btn">CLIENTES INACTIVOS</a>
                         </div>
                         <div class="col-md-6 mb-3 mt-2 text-center">
-                            <a href="index.php?page=mantenimientoEmpleados" class="btn btn-outline-secondary btn-lg btn-block custom-btn">EMPLEADOS</a>
+                            <a href="index.php?page=mantenimientoEmpleados" class="btn btn-outline-secondary btn-lg btn-block custom-btn">EMPLEADOS Y ADMINISTRADORES</a>
                         </div>
                         <div class="col-md-6 mb-3 mt-2 text-center">
-                            <a href="index.php?page=empleadosInactivos" class="btn btn-outline-secondary btn-lg btn-block custom-btn">EMPLEADOS INACTIVOS</a>
+                            <a href="index.php?page=empleadosInactivos" class="btn btn-outline-secondary btn-lg btn-block custom-btn">EMPLEADOS Y ADMINIS. INACTIVOS</a>
                         </div>
-                        <div class="col-md-6 mb-3 mt-2 text-center">
-                            <a href="index.php?page=mantenimientoAdministradores" class="btn btn-outline-secondary btn-lg btn-block custom-btn">ADMINISTRADORES</a>
-                        </div>
-                        <div class="col-md-6 mb-3 mt-2 text-center">
-                            <a href="index.php?page=administradoresInactivos" class="btn btn-outline-secondary btn-lg btn-block custom-btn">ADMINISTRADORES INACTIVOS</a>
-                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>

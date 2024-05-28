@@ -40,7 +40,7 @@ if (isset($_SESSION['datos_borrados'])) {
         <div class="col-md-6">
             
             <div class="bg-danger text-white p-2 mb-2 text-center">
-                <h3>Borrar Empleado</h3>
+                <h3>Borrar Empleado o Administrador</h3>
             </div>
             <div class="card">
 

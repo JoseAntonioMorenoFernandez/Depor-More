@@ -87,7 +87,7 @@ if (isset($_SESSION['activar_cliente'])) {
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Confirmar Activar</button>
-                            <a href="index.php?page=mantenimientoClientes" class="btn btn-secondary">Cancelar</a>
+                            <a href="index.php?page=clientesInactivos" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>
